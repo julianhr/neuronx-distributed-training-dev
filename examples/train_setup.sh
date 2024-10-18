@@ -10,10 +10,13 @@ then
     export FI_EFA_USE_DEVICE_RDMA=1
     export FI_PROVIDER=efa
     export FI_EFA_FORK_SAFE=1
-    sudo sysctl -w net.ipv4.ip_local_reserved_ports=41000
-    if which lctl >/dev/null 2>&1; then
-        sudo lctl set_param 'osc.*.max_dirty_mb=64' # Cap max space each connection to FSx reserves so we avoid OODs
-    fi
+
+    # comment out entire block
+    # sudo sysctl -w net.ipv4.ip_local_reserved_ports=41000
+    # if which lctl >/dev/null 2>&1; then
+    #     sudo lctl set_param 'osc.*.max_dirty_mb=64' # Cap max space each connection to FSx reserves so we avoid OODs
+    # fi
+
     IPS=""
     for h in $(scontrol show hostname); do
         IPS="$IPS $(nslookup $h  | awk '/^Address: / { print $2 }')";
